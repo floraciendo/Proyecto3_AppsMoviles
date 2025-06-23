@@ -1,0 +1,7 @@
+bin/
+obj/
+*.user
+*.sln
+
+# No incluir la base de datos ?
+*.db
