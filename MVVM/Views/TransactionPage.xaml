@@ -5,16 +5,26 @@
 
     <Grid>
         <VerticalStackLayout Padding="15" Spacing="10">
-            <Label Text="Nueva transacción" FontSize="18"/>
+            <Label Text="Nueva transacción" FontSize="24" FontAttributes="Bold"/>
 
             <Frame>
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Glosa"/>
+                    <Entry Text="{Binding Description}" />
                     <Label Text="Cantidad"/>
+                    <Entry Text="{Binding Value}" Keyboard="Numeric"/>
                     <Label Text="Fecha"/>
-                    
-                    <Button Text="Cancelar" Clicked="OnCancelarClicked" />
-                </VerticalStackLayout>        
+                    <DatePicker Date="{Binding Date}"/>
+                    <HorizontalStackLayout>
+                        <Label Text="¿Es ingreso?"/>
+                        <Switch IsToggled="{Binding IsIncome}"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Button Text="Guardar" Command="{Binding SaveTransactionAsyncCommand}" TextColor="White"/>
+                        <Button Text="Cancelar" Command="{Binding CancelTransactionAsyncCommand}" TextColor="White" BackgroundColor="Brown"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
             </Frame> 
         </VerticalStackLayout>
     </Grid>

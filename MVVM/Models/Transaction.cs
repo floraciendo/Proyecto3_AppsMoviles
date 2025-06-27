@@ -1,19 +1,13 @@
 using System;
 using SQLite;
 
-namespace FinanceTracker.MVVM.Models
+namespace FinanceTracker.MVVM.Models;
+public class Transaction
 {
-    public class Transaction
-    {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
-        public string Glosa { get; set; }
-
-        public float Monto { get; set; }
-
-        public DateTime Fecha { get; set; }
-
-        public bool EsIngreso { get; set; }
-    }
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public float Value { get; set; }
+    public DateTime Date { get; set; }
+    public bool IsIncome { get; set; }
 }

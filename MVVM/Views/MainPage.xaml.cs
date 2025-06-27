@@ -1,16 +1,13 @@
-﻿namespace FinanceTracker.MVVM.Views;
+﻿using FinanceTracker.MVVM.ViewModels;
+
+namespace FinanceTracker.MVVM.Views;
 
 public partial class MainPage : ContentPage
 {
-
-	public MainPage()
+	public MainPage(MainPageViewModel viewModel)
 	{
 		InitializeComponent();
-	}
-
-	private async void OnAgregarTransaccionClicked(object sender, EventArgs e)
-	{
-		await Shell.Current.GoToAsync(nameof(TransactionPage));
+		BindingContext = viewModel;
 	}
 
 }
