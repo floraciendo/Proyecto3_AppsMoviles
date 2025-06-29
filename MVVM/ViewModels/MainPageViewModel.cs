@@ -28,8 +28,7 @@ public partial class MainPageViewModel : ObservableObject
         Transactions = new ObservableCollection<Transaction>();
     }
 
-    [RelayCommand]
-    private async Task LoadDataAsync()
+    public async Task LoadDataAsync()
     {
         var transaction_list = await _repository.GetTransactionsAsync();
         Transactions = new ObservableCollection<Transaction>(transaction_list);

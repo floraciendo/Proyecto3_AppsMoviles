@@ -21,8 +21,8 @@
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout>
-                        <Button Text="Guardar" Command="{Binding SaveTransactionAsyncCommand}" TextColor="White"/>
-                        <Button Text="Cancelar" Command="{Binding CancelTransactionAsyncCommand}" TextColor="White" BackgroundColor="Brown"/>
+                        <Button Text="Guardar" Command="{Binding SaveTransactionCommand}" TextColor="White"/>
+                        <Button Text="Cancelar" Command="{Binding CancelTransactionCommand}" TextColor="White" BackgroundColor="Brown"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Frame> 

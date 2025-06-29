@@ -25,9 +25,9 @@
                 </VerticalStackLayout>        
             </Frame>
 
+            <Button Text="+" Command="{Binding GoToTransactionPageCommand}" />
 
-            <Button Text="+" Command="{Binding GoToTransactionPageCommand}"/>
-            <Label Text="Transacciones" />
+            <Label Text="Transacciones" />           
             <CollectionView ItemsSource="{Binding Transactions}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -39,8 +39,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            
         </VerticalStackLayout>
     </Grid>
 
