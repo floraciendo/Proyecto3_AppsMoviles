@@ -2,6 +2,7 @@ using FinanceTracker.MVVM.Models;
 using SQLite;
 
 namespace FinanceTracker.Repositories;
+
 public class TransactionRepository : ITransactionRepository
 {
     private readonly SQLiteAsyncConnection _connection;
@@ -22,14 +23,20 @@ public class TransactionRepository : ITransactionRepository
         return _connection.Table<Transaction>().OrderByDescending(t => t.Date).ToListAsync();
     }
 
-    public async Task<float> GetTotalIncomeAsync() {
+    public async Task<decimal> GetTotalIncomeAsync()
+    {
         var income = await _connection.Table<Transaction>().Where(t => t.IsIncome).ToListAsync();
         return income.Sum(t => t.Value);
     }
 
-    public async Task<float> GetTotalExpensesAsync()
+    public async Task<decimal> GetTotalExpensesAsync()
     {
         var expenses = await _connection.Table<Transaction>().Where(t => !t.IsIncome).ToListAsync();
         return expenses.Sum(t => t.Value);
+    }
+
+    public async Task DeleteTransactionsAsync()
+    {
+        await _connection.DeleteAllAsync<Transaction>();
     }
 }

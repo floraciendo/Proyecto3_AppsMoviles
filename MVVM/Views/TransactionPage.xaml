@@ -3,24 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinanceTracker.MVVM.Views.TransactionPage">
 
-    <Grid>
+    <Grid BackgroundColor="GhostWhite">
         <VerticalStackLayout Padding="15" Spacing="10">
-            <Label Text="Nueva transacción" FontSize="24" FontAttributes="Bold"/>
+            <Label Text="Nueva transacción" FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
 
             <Frame>
                 <VerticalStackLayout Spacing="10">
                     <Label Text="Glosa"/>
-                    <Entry Text="{Binding Description}" />
+                    <Entry Text="{Binding Description}"/>
                     <Label Text="Cantidad"/>
                     <Entry Text="{Binding Value}" Keyboard="Numeric"/>
                     <Label Text="Fecha"/>
                     <DatePicker Date="{Binding Date}"/>
-                    <HorizontalStackLayout>
-                        <Label Text="¿Es ingreso?"/>
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="¿Es ingreso?" VerticalTextAlignment="Center"/>
                         <Switch IsToggled="{Binding IsIncome}"/>
                     </HorizontalStackLayout>
 
-                    <HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
                         <Button Text="Guardar" Command="{Binding SaveTransactionCommand}" TextColor="White"/>
                         <Button Text="Cancelar" Command="{Binding CancelTransactionCommand}" TextColor="White" BackgroundColor="Brown"/>
                     </HorizontalStackLayout>

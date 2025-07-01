@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FinanceTracker.Repositories;
 using FinanceTracker.MVVM.Models;
+using System.Diagnostics;
 
 namespace FinanceTracker.MVVM.ViewModels;
 
@@ -14,13 +15,13 @@ public partial class MainPageViewModel : ObservableObject
     private ObservableCollection<Transaction> transactions;
 
     [ObservableProperty]
-    private float totalIncome;
+    private decimal totalIncome;
 
     [ObservableProperty]
-    private float totalExpenses;
+    private decimal totalExpenses;
 
     [ObservableProperty]
-    private float balance;
+    private decimal balance;
 
     public MainPageViewModel(ITransactionRepository repository)
     {
@@ -32,6 +33,8 @@ public partial class MainPageViewModel : ObservableObject
     {
         var transaction_list = await _repository.GetTransactionsAsync();
         Transactions = new ObservableCollection<Transaction>(transaction_list);
+        // Borrar después
+        Debug.WriteLine($"Cantidad de transacciones: {Transactions?.Count ?? 0}");
 
         TotalIncome = await _repository.GetTotalIncomeAsync();
         TotalExpenses = await _repository.GetTotalExpensesAsync();
@@ -42,6 +45,23 @@ public partial class MainPageViewModel : ObservableObject
     private async Task GoToTransactionPage()
     {
         await Shell.Current.GoToAsync("TransactionPage");
+    }
+
+    // Borrar después
+    [RelayCommand]
+    private async Task DeleteAllTransactionsAsync()
+    {
+        bool confirm = await Shell.Current.DisplayAlert(
+            "Confirmar",
+            "¿Estás seguro de eliminar TODAS las transacciones?",
+            "Sí", "No");
+        
+        if (confirm)
+        {
+            await _repository.DeleteTransactionsAsync();
+            await LoadDataAsync();
+            await Shell.Current.DisplayAlert("Éxito", "Transacciones eliminadas", "OK");
+        }
     }
 
 }

@@ -16,7 +16,7 @@ public partial class TransactionPageViewModel : ObservableObject
     private string description = string.Empty;
 
     [ObservableProperty]
-    private float value;
+    private decimal value;
 
     [ObservableProperty]
     private DateTime date = DateTime.Now;

@@ -7,7 +7,7 @@ public class Transaction
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
     public string Description { get; set; } = string.Empty;
-    public float Value { get; set; }
+    public decimal Value { get; set; }
     public DateTime Date { get; set; }
     public bool IsIncome { get; set; }
 }
