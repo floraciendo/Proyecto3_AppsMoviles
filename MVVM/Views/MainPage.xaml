@@ -3,64 +3,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FinanceTracker.MVVM.Views.MainPage">
 
-    <ScrollView BackgroundColor="GhostWhite">
-        <VerticalStackLayout Padding="15" Spacing="10">
-            <VerticalStackLayout>
-                <Label Text="Hola," FontSize="16"/>
-                <Label Text="Nombre X" FontSize="24" FontAttributes="Bold"/>
+  <Grid RowDefinitions="Auto,Auto,*,Auto" BackgroundColor="GhostWhite">
+    <VerticalStackLayout Grid.Row="0" Padding="15" Spacing="10">
+      <Label Text="Hola," FontSize="16"/>
+      <Label Text="Nombre X" FontSize="24" FontAttributes="Bold"/>
+
+      <Frame Padding="10">
+        <VerticalStackLayout Spacing="10">
+          <VerticalStackLayout>
+            <Label Text="Balance"/>
+            <Label Text="{Binding Balance, StringFormat='${0:N0}'}" FontSize="20" FontAttributes="Bold"/>
+          </VerticalStackLayout>
+          <Grid ColumnDefinitions="4*,3*" ColumnSpacing="20">
+            <VerticalStackLayout Grid.Column="0">
+              <Label Text="Ingresos" />
+              <Label Text="{Binding TotalIncome, StringFormat='${0:N0}'}" FontAttributes="Bold"/> 
             </VerticalStackLayout>
-            
+            <VerticalStackLayout Grid.Column="1">
+              <Label Text="Egresos" />
+              <Label Text="{Binding TotalExpenses, StringFormat='${0:N0}'}" FontAttributes="Bold"/> 
+            </VerticalStackLayout>
+          </Grid>
+        </VerticalStackLayout>        
+      </Frame>
 
-            <Frame Padding="10">
-                <VerticalStackLayout Spacing="10">
-                    <VerticalStackLayout>
-                        <Label Text="Balance"/>
-                        <Label Text="{Binding Balance, StringFormat='${0:N0}'}" FontSize="20" FontAttributes="Bold"/>
-                    </VerticalStackLayout>
-                    <Grid ColumnDefinitions="4*,3*" ColumnSpacing="20">
-                        <VerticalStackLayout Grid.Column="0">
-                            <Label Text="Ingresos" />
-                            <Label Text="{Binding TotalIncome, StringFormat='${0:N0}'}" FontAttributes="Bold"/> 
-                        </VerticalStackLayout>
-                        <VerticalStackLayout Grid.Column="1">
-                            <Label Text="Egresos" />
-                            <Label Text="{Binding TotalExpenses, StringFormat='${0:N0}'}" FontAttributes="Bold"/> 
-                        </VerticalStackLayout>
-                    </Grid>
-                </VerticalStackLayout>        
-            </Frame>
-            <HorizontalStackLayout Spacing="20">
-                <!-- Borrar después -->
-                <Button Text="Borrar" Command="{Binding DeleteAllTransactionsCommand}" BackgroundColor="Brown"/>
+      <HorizontalStackLayout Spacing="20">
+        <Button Text="Borrar" Command="{Binding DeleteAllTransactionsCommand}" BackgroundColor="Brown"/>
+        <Button Text="+" Command="{Binding GoToTransactionPageCommand}" CornerRadius="25"/>
+      </HorizontalStackLayout>
+    </VerticalStackLayout>
 
-                <Button Text="+" Command="{Binding GoToTransactionPageCommand}" CornerRadius="25"/>
-            </HorizontalStackLayout>
+    <Label Grid.Row="1"
+           Text="Transacciones"
+           FontAttributes="Bold"
+           Margin="15,0"/>
 
-            <!-- Borrar después -->
-            <!-- <Label Text="{Binding Transactions.Count, StringFormat='Cantidad de transacciones: {0}'}" /> -->
-
-            <Label Text="Transacciones" FontAttributes="Bold"/>           
-            <CollectionView ItemsSource="{Binding Transactions}" >
-                <CollectionView.EmptyView>
-                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
-                        <Label Text="No hay transacciones registradas. Apreta el botón + para agregar una nueva transacción" HorizontalTextAlignment="Center"/>
-                    </VerticalStackLayout>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnDefinitions="1*,1*">
-                            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
-                                <Label Text="{Binding Description}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Date, StringFormat='{}{0:dd-MM-yyyy}'}" TextColor="Gray"/>
-                            </VerticalStackLayout>
-                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
-                                <Label Text="{Binding ., Converter={StaticResource TransactionFormat}}" FontSize="18" FontAttributes="Bold" TextColor="{Binding IsIncome, Converter={StaticResource TransactionColor}}"/>
-                            </VerticalStackLayout>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+    <CollectionView
+      Grid.Row="2"
+      ItemsSource="{Binding Transactions}"
+      VerticalOptions="FillAndExpand">
+      <CollectionView.EmptyView>
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+          <Label
+            Text="No hay transacciones registradas. Apreta + para agregar una nueva"
+            HorizontalTextAlignment="Center"/>
         </VerticalStackLayout>
-    </ScrollView>
-
+      </CollectionView.EmptyView>
+      <CollectionView.ItemTemplate>
+        <DataTemplate>
+          <Grid ColumnDefinitions="1*,1*">
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+              <Label Text="{Binding Description}" FontAttributes="Bold"/>
+              <Label Text="{Binding Date, StringFormat='{}{0:dd-MM-yyyy}'}" TextColor="Gray"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center">
+              <Label
+                Text="{Binding ., Converter={StaticResource TransactionFormat}}"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="{Binding IsIncome, Converter={StaticResource TransactionColor}}"/>
+            </VerticalStackLayout>
+          </Grid>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>
+  </Grid>
 </ContentPage>
